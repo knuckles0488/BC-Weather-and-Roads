@@ -96,6 +96,8 @@ const App: React.FC = () => {
       const events = await fetchRoadEvents(settings.highways);
       setRoadEvents(events);
 
+      // Temporarily disabled pop-up notifications per user request
+      /*
       events.forEach(event => {
         const desc = event.description.toLowerCase();
         const isClosed = desc.includes('closed') || desc.includes('closure') || desc.includes('road closed');
@@ -105,6 +107,7 @@ const App: React.FC = () => {
           seenEventIds.current.add(event.id);
         }
       });
+      */
     } catch (err) {
       console.error("Background data refresh failed", err);
     } finally {
