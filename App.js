@@ -16,7 +16,7 @@ import {
   fetchWeather, 
   fetchRoadEvents 
 } from './services/api';
-import SettingsModal from './components/SettingsModal';
+import SettingsModal from './components/SettingsModal.js';
 import NotificationToast from './components/NotificationToast';
 import { 
   Settings, 
