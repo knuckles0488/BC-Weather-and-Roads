@@ -1,0 +1,7 @@
+{
+  "name": "BC Weather & Roads",
+  "description": "Real-time weather and highway conditions for British Columbia.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

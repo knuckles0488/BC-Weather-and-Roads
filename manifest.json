@@ -1,0 +1,25 @@
+
+{
+  "short_name": "BC Weather",
+  "name": "BC Weather & Roads",
+  "description": "Real-time weather and highway conditions for British Columbia.",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/1163/1163661.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/192/1163/1163661.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "./",
+  "background_color": "#f8fafc",
+  "display": "standalone",
+  "scope": "./",
+  "theme_color": "#0f172a",
+  "orientation": "portrait"
+}
