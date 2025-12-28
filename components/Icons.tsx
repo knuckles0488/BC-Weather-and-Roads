@@ -4,7 +4,7 @@ import {
   Sun, Cloud, CloudRain, CloudSnow, CloudLightning, 
   CloudDrizzle, Wind, Thermometer, Droplets, Navigation,
   AlertTriangle, Info, Settings, Trash2, Plus, ChevronDown, Bell,
-  Moon, CloudSun, MoonStar
+  Moon, CloudSun, MoonStar, Clock
 } from 'lucide-react';
 
 export const getWeatherDescription = (code: number): string => {
@@ -50,9 +50,10 @@ export const WeatherIcon = ({ code, className = "w-8 h-8" }: { code: number; cla
   return <Cloud className={className} />;
 };
 
+// Fixed: Added Clock to the exported members
 export { 
   Sun, Cloud, CloudRain, CloudSnow, CloudLightning, 
   CloudDrizzle, Wind, Thermometer, Droplets, Navigation,
   AlertTriangle, Info, Settings, Trash2, Plus, ChevronDown, Bell,
-  Moon, CloudSun, MoonStar
+  Moon, CloudSun, MoonStar, Clock
 };

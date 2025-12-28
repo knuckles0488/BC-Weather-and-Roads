@@ -27,7 +27,8 @@ import {
   Droplets, 
   AlertTriangle,
   Navigation,
-  CloudSnow
+  CloudSnow,
+  Clock
 } from './components/Icons.tsx';
 
 const App: React.FC = () => {
@@ -132,6 +133,50 @@ const App: React.FC = () => {
       month: 'short', 
       day: 'numeric' 
     }).format(d);
+  };
+
+  const renderHourlyForecast = () => {
+    if (!currentCityWeather || viewType !== 'current') return null;
+
+    // Find the current hour index
+    const now = new Date();
+    const currentHourStr = now.toISOString().split(':')[0] + ':00';
+    let startIndex = currentCityWeather.hourly.time.findIndex(t => t.startsWith(currentHourStr));
+    
+    // Fallback to 0 if not found
+    if (startIndex === -1) startIndex = 0;
+
+    const next8Hours = Array.from({ length: 8 }).map((_, i) => {
+      const idx = startIndex + i;
+      if (idx >= currentCityWeather.hourly.time.length) return null;
+
+      const timeStr = currentCityWeather.hourly.time[idx];
+      const date = new Date(timeStr);
+      const hourLabel = i === 0 ? 'Now' : date.toLocaleTimeString('en-CA', { hour: 'numeric', hour12: true }).replace(' ', '');
+      
+      return {
+        label: hourLabel,
+        temp: currentCityWeather.hourly.temp[idx],
+        code: currentCityWeather.hourly.weather_code[idx],
+        precip: currentCityWeather.hourly.precip[idx] ?? 0,
+        snow: currentCityWeather.hourly.snowfall[idx] ?? 0
+      };
+    }).filter(Boolean);
+
+    return (
+      <div className="mt-10 -mx-8 px-8 overflow-x-auto no-scrollbar flex gap-3 snap-x">
+        {next8Hours.map((h, i) => (
+          <div key={i} className="flex-shrink-0 w-20 snap-start bg-white/10 p-3 rounded-3xl border border-white/10 backdrop-blur-md flex flex-col items-center">
+            <span className="text-[10px] font-black text-white/60 mb-2 uppercase tracking-tight">{h.label}</span>
+            <WeatherIcon code={h.code} className="w-7 h-7 mb-2" />
+            <span className="text-sm font-black mb-1">{Math.round(h.temp)}°</span>
+            <span className="text-[8px] font-black text-white/50 uppercase tracking-tighter">
+              {isSnowCode(h.code) ? `${h.snow.toFixed(1)}cm` : `${h.precip.toFixed(1)}mm`}
+            </span>
+          </div>
+        ))}
+      </div>
+    );
   };
 
   const renderForecastDetails = (dayIdx: number) => {
@@ -403,7 +448,7 @@ const App: React.FC = () => {
                   </div>
                 </div>
 
-                {viewType !== 'current' && renderForecastDetails(
+                {viewType === 'current' ? renderHourlyForecast() : renderForecastDetails(
                   viewType === 'day1' ? 1 : viewType === 'day2' ? 2 : 3
                 )}
               </div>
